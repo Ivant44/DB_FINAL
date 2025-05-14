@@ -1,13 +1,12 @@
 {
   "build": {
     "builder": "nixpacks",
-    "buildCommand": "apt-get update && apt-get install -y php-mysql",
-    "nixpacks": {
-      "providers": ["php"]
-    }
+    "buildCommand": "nixpacks install php && docker-php-ext-install mysqli pdo pdo_mysql"
   },
   "deploy": {
-    "startCommand": "php -S 0.0.0.0:$PORT -t public"
+    "startCommand": "php -S 0.0.0.0:$PORT -t public",
+    "restartPolicyType": "ON_FAILURE",
+    "healthcheckPath": "/"
   }
 }
 
